@@ -1,0 +1,40 @@
+--------------------------O que eh, e como eh prefixo, infixo e sufixo--------------------------
+
+Os  prefixos  "pre",  "pos"  e  "in"  referem-se  à  posição  relativa  dooperador  em  relação  aos  
+    dois  operandos.  Na  notação  prefixa,  o  operadorprecede  os  dois  operandos;  na  notação  
+    posfixa,  o  operador  é  introduzidodepois  dos  dois  operandos  e,  na notação infixa,  o  
+    operador  aparece entre  osdois  operandos.
+
+
++ A B    prefixa
+A B  +    posfixa
+
+
+
+// Posfixa = Operador que vier logo apos da string, antes dela, eh o primeiro a ser executado
+
+
+
+--------------------------Regras de transformacao--------------------------
+Quando operadores sem parênteses e da mesma ordem de precedên-cia  são  avaliados,  pressupõe-se  a  
+    ordem  da  esquerda para  a  direita,  excetono  caso  da exponenciação,  em  que  a ordem  é  
+    supostamente  da direita paraa esquerda. Sendo assim, A + B + C significa (A + B) + C, enquanto 
+    A $ B $C  significa A  $  (B  $  C).  Usando parênteses,  podemos  ignorar a precedênciapadrão.
+
+
+    Forma  Infixa                                   Forma  Posfixa
+A + B                                           AB +
+A + B-C                                         AB + C-
+(A + B) * (C - D)                               AB + CD - *
+A$B*C-D  + E/F/(G + H)                          AB$C*D-EF/GH + / +
+((A +  B) * C -  (D - E)) $ (F +  G)            AB + C * DE - - FG + $
+A - B / (C * D $ E)                             ABCDE $ * / -   
+
+
+Forma  Infixa                                       Forma  Prefixa
+A + B                                           + AB
+A + B-C                                         - + ABC
+(A + B) * (C - D)                               * + AB - CD
+A$B*C-D  + E/F/(G + H)                          + - * $ABCD//EF + GH
+((A + B) * C - (D - E) $ (F + G)                $ - + ABC - DE + FG
+A - B/(C * D $ E)                               - A/B * C $ DE
