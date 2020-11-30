@@ -143,38 +143,28 @@ char *infixo_To_sufixo(char *str)
         case '+':
         case '-':
             temp = pop(s);
-            if (temp == '(')
-                push(s, temp);
-            else
+            // Como ele vai retirar 1 pop a mais, coloca ele de volta
+            while ((!empty(s)) && temp != '(')
             {
-                // Como ele vai retirar 1 pop a mais, coloca ele de volta
-                while ((!empty(s)) && temp != '(')
-                {
-                    printf("%c ", temp);
-                    posFix[j++] = temp;
-                    temp = pop(s);
-                }
-                push(s, temp);
+                printf("%c ", temp);
+                posFix[j++] = temp;
+                temp = pop(s);
             }
+            push(s, temp);
             push(s, aux);
             break;
         // Como * e / tem prioridades perante a + e -, ele sao colocados por ultimo, LIFO (Last In First Out)
         case '*':
         case '/':
             temp = pop(s);
-            if ((temp == '(') || (temp == '+') || (temp == '-'))
-                push(s, temp);
-            else
+            // Como ele vai retirar um pop a mais, coloca de volta
+            while ((!empty(s)) && (temp != '(') && (temp != '+') && (temp != '-'))
             {
-                // Como ele vai retirar um pop a mais, coloca de volta
-                while ((!empty(s)) && (temp != '(') && (temp != '+') && (temp != '-'))
-                {
-                    printf("%c ", temp);
-                    posFix[j++] = temp;
-                    temp = pop(s);
-                }
-                push(s, temp);
+                printf("%c ", temp);
+                posFix[j++] = temp;
+                temp = pop(s);
             }
+            push(s, temp);
             push(s, aux);
             break;
 
@@ -217,8 +207,8 @@ void sufixo_To_infixo(char *str)
 int calculoSufixo_To_Infixo(char *str)
 {
     StackInt *s = createStackInt(strlen(str));
-    int i = 0;
-    int total = 0;
+    int i = 0, total = 0;
+    int numDiv1, numDiv2;
     while (str[i] != '\0')
     {
         if (str[i] >= '0' && str[i] <= '9')
@@ -228,7 +218,9 @@ int calculoSufixo_To_Infixo(char *str)
             switch (str[i])
             {
             case '/':
-                total = popInt(s) / popInt(s);
+                numDiv1 = popInt(s);
+                numDiv2 = popInt(s);
+                total = numDiv2 / numDiv1;
                 pushInt(s, total);
                 break;
             case '*':
